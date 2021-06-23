@@ -1,0 +1,28 @@
+checks:
+  php:
+    code_rating: true
+
+filter:
+  excluded_paths:
+    - tests/*
+    - vendor/*
+
+build:
+
+  environment:
+    php: '7.4'
+
+  dependencies:
+    before:
+      - composer require phpunit/phpunit --dev --no-update
+      - composer update --prefer-stable
+      - composer show | grep -E '^(phpunit/phpunit|sebastian/comparator)'
+      - mkdir -p build/logs
+
+  tests:
+    override:
+      -
+        command: 'phpdbg -qrr vendor/bin/phpunit --coverage-clover build/logs/clover.xml'
+        coverage:
+          file: 'build/logs/clover.xml'
+          format: 'clover'

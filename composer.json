@@ -1,0 +1,31 @@
+{
+    "name": "mpyw/phpunit-patch-serializable-comparison",
+    "description": "Fixes assertSame/assertEquals serialization errors running in separate processes.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mpyw",
+            "email": "ryosuke_i_628@yahoo.co.jp"
+        }
+    ],
+    "keywords": ["phpunit", "isolation", "serialization", "separate", "process", "processes", "patch", "fix", "bug"],
+    "autoload": {
+        "files": [
+            "./files/ComparisonFailure.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mpyw\\PHPUnitPatchSerializableComparison\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "sebastian/comparator": "^1.0 || ^2.0 || ^3.0 || ^4.0"
+    },
+    "scripts": {
+        "json:restore": "git checkout composer.json",
+        "json:polyfill": "./polyfill && composer dump-autoload"
+    }
+}
