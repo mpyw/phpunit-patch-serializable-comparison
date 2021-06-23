@@ -19,7 +19,7 @@ composer require --dev mpyw/phpunit-patch-serializable-comparison
 ```php
 class AssertionTest extends TestCase
 {
-    protected function callAssertSameInClosure(\Closure $closure)
+    protected function callAssertSameReceivingClosure(\Closure $closure)
     {
         static::assertSame('aaa', 'bbb');
     }
