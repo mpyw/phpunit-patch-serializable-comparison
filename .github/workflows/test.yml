@@ -1,0 +1,67 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - php: 5.3
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 5.3
+            composer_flags: --prefer-stable
+          - php: 5.4
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 5.4
+            composer_flags: --prefer-stable
+          - php: 5.5
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 5.5
+            composer_flags: --prefer-stable
+          - php: 5.6.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 5.6
+            composer_flags: --prefer-stable
+          - php: 7.0.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 7.0
+            composer_flags: --prefer-stable
+          - php: 7.1.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 7.1
+            composer_flags: --prefer-stable
+          - php: 7.2.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 7.2
+            composer_flags: --prefer-stable
+          - php: 7.3.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 7.3
+            composer_flags: --prefer-stable
+          - php: 7.4.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 7.4
+            composer_flags: --prefer-stable
+          - php: 8.0.0
+            composer_flags: --prefer-stable --prefer-lowest
+          - php: 8.0
+            composer_flags: --prefer-stable
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+        env:
+          COMPOSER_FLAGS: ${{ matrix.composer_flags }}
+
+      - run: composer require phpunit/phpunit --dev --no-update $COMPOSER_FLAGS
+      - run: composer update $COMPOSER_FLAGS
+      - run: composer show | grep -E '^(phpunit/phpunit|sebastian/comparator)'
+      - run: composer json:polyfill
+      - run: vendor/bin/phpunit
