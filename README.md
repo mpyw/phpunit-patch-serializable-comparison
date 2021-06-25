@@ -1,4 +1,4 @@
-# PHPUnit Patch Serializable Comparison ![Status](https://github.com/mpyw/phpunit-patch-serializable-comparison/actions/workflows/test.yml/badge.svg?branch=master)
+# PHPUnit Patch Serializable Comparison [![Status](https://github.com/mpyw/phpunit-patch-serializable-comparison/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/mpyw/phpunit-patch-serializable-comparison/actions)
 
 Fixes `assertSame()`/`assertEquals()` serialization errors running in separate processes.
 
