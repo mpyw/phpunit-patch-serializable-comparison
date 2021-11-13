@@ -18,14 +18,13 @@
     "autoload-dev": {
         "psr-4": {
             "Mpyw\\PHPUnitPatchSerializableComparison\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "./tests/polyfill.php"
+        ]
     },
     "require": {
         "php": ">=5.3.3",
         "sebastian/comparator": "^1.0 || ^2.0 || ^3.0 || ^4.0"
-    },
-    "scripts": {
-        "json:restore": "git checkout composer.json",
-        "json:polyfill": "./polyfill && composer dump-autoload"
     }
 }

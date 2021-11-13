@@ -21,5 +21,4 @@ jobs:
 
       - run: composer require phpunit/phpunit --dev ${{ matrix.flags }}
       - run: composer show | grep -E '^(phpunit/phpunit|sebastian/comparator)'
-      - run: composer json:polyfill
       - run: vendor/bin/phpunit
