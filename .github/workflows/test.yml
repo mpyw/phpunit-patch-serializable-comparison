@@ -21,4 +21,5 @@ jobs:
 
       - run: composer require phpunit/phpunit --dev ${{ matrix.flags }}
       - run: composer show | grep -E '^(phpunit/phpunit|sebastian/comparator)'
+      - run: 'vendor/bin/phpunit --migrate-configuration || :'
       - run: vendor/bin/phpunit
