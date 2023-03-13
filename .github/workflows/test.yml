@@ -9,7 +9,14 @@ jobs:
     strategy:
       matrix:
         php: [5.3, 5.4, 5.5, 5.6, '7.0', 7.1, 7.2, 7.3, 7.4, '8.0', 8.1, 8.2]
-        flags: [--prefer-lowest, '']
+        flags: ['']
+        include:
+          - { php: 5.3, flags: --prefer-lowest }
+          - { php: 5.4, flags: --prefer-lowest }
+          - { php: 5.5, flags: --prefer-lowest }
+          - { php: 5.6, flags: --prefer-lowest }
+          - { php: '7.0', flags: --prefer-lowest }
+          - { php: 7.1, flags: --prefer-lowest }
 
     steps:
       - uses: actions/checkout@v2
