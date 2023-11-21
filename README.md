@@ -24,10 +24,8 @@ class AssertionTest extends TestCase
         static::assertSame('aaa', 'bbb');
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(enabled: false)]
     public function testAssertionIncludingUnserializableTrace()
     {
         static::callAssertSameInClosure(function () {});
