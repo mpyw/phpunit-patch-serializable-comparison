@@ -6,7 +6,7 @@ Fixes `assertSame()`/`assertEquals()` serialization errors running in separate p
 
 - php: `>=5.3.3`
 - [phpunit/phpunit](https://github.com/sebastianbergmann/phpunit): `>=4.8.0`
-- [sebastianbergmann/comparator](https://github.com/sebastianbergmann/comparator): `^1.0 || ^2.0 || ^3.0 || ^4.0 || ^5.0 || ^6.0`
+- [sebastianbergmann/comparator](https://github.com/sebastianbergmann/comparator): `^1.0 || ^2.0 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0`
 
 ## Installing
 
