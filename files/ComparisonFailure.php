@@ -110,10 +110,26 @@ final class ComparisonFailure extends RuntimeException
         }
 
         $header = "\n--- Expected\n+++ Actual\n";
+        $builder = $header;
         if (\class_exists('SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder')) {
-            $header = new UnifiedDiffOutputBuilder($header);
+            // sebastian/diff >=8 (pulled in by sebastian/comparator ^8) adds an
+            // `emitNoLineEndEofWarning` constructor argument that defaults to true,
+            // which injects `\ No newline at end of file` markers into the diff.
+            // Disable it when available to keep the legacy output format; older
+            // diff releases lack the argument, so fall back to the 1-argument form.
+            $emitsNoLineEndEofWarning = false;
+            $constructor = new \ReflectionMethod('SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder', '__construct');
+            foreach ($constructor->getParameters() as $parameter) {
+                if ($parameter->getName() === 'emitNoLineEndEofWarning') {
+                    $emitsNoLineEndEofWarning = true;
+                    break;
+                }
+            }
+            $builder = $emitsNoLineEndEofWarning
+                ? new UnifiedDiffOutputBuilder($header, false, 3, false)
+                : new UnifiedDiffOutputBuilder($header);
         }
-        $differ = new Differ($header);
+        $differ = new Differ($builder);
 
         return $differ->diff($this->expectedAsString, $this->actualAsString);
     }

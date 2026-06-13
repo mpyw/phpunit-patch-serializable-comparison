@@ -9,7 +9,17 @@
             "email": "ryosuke_i_628@yahoo.co.jp"
         }
     ],
-    "keywords": ["phpunit", "isolation", "serialization", "separate", "process", "processes", "patch", "fix", "bug"],
+    "keywords": [
+        "phpunit",
+        "isolation",
+        "serialization",
+        "separate",
+        "process",
+        "processes",
+        "patch",
+        "fix",
+        "bug"
+    ],
     "autoload": {
         "files": [
             "./files/ComparisonFailure.php"
@@ -28,7 +38,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "sebastian/comparator": "^1.0 || ^2.0 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
+        "sebastian/comparator": "^1.0 || ^2.0 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || >=8.0 <8.2"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8"
