@@ -17,6 +17,11 @@ jobs:
           - { php: 5.6, flags: --prefer-lowest }
           - { php: '7.0', flags: --prefer-lowest }
           - { php: 7.1, flags: --prefer-lowest }
+          # Explicitly exercise the sebastian/comparator 8.0 / 8.1 range — the
+          # versions that still lack the #158 serialization fix and therefore
+          # still need this patch (requires PHP >= 8.4).
+          - { php: 8.4, comparator: 8.0.* }
+          - { php: 8.5, comparator: 8.1.* }
 
     steps:
       - uses: actions/checkout@v3
@@ -26,7 +31,11 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - run: composer require phpunit/phpunit --dev ${{ matrix.flags }}
-      - run: composer show | grep -E '^(phpunit/phpunit|sebastian/comparator)'
+      - name: Pin sebastian/comparator
+        if: ${{ matrix.comparator }}
+        run: composer require "sebastian/comparator:${{ matrix.comparator }}" --no-update
+
+      - run: composer require phpunit/phpunit --dev ${{ matrix.flags }} ${{ matrix.comparator && '-W' || '' }}
+      - run: composer show | grep -E '^(phpunit/phpunit|sebastian/comparator|sebastian/diff)'
       - run: 'vendor/bin/phpunit --migrate-configuration || :'
       - run: vendor/bin/phpunit
